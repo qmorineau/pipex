@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/07 12:33:03 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/07 16:40:24 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ LIBFT_INC = libft/includes
 MLX_INC = minilibx-linux
 
 # Source and Object files
-SRC_LIST = main.c
+SRC_LIST = main.c\
+			free.c
 
 # Source and Object files BONUS
 BONUS_LIST = 

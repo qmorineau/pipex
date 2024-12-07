@@ -1,9 +1,18 @@
 #include "pipex.h"
 
+char **create_args_execve(t_cmd *command)
+{
+	char **args;
+
+	
+
+	return ()
+}
+
 void test(int argc, char *argv[], int input, int output)
 {
 	printf("input = %d\n", input);
-	char *args[] = {"/bin/ls", "-l", "-a", NULL};
+	char *args[] = {"/bin/ls", "-l","-a", NULL};
     char *env[] = {NULL};
 
 	(void) argc;
@@ -16,14 +25,34 @@ void test(int argc, char *argv[], int input, int output)
 	printf("output = %d\n", output);
 }
 
-char **parse_cmd(char *argv)
+t_cmd *parse_cmd(char *argv)
 {
-	char **tab;
+	char	**tab;
+	t_cmd	*command;
+	int		len;
 
 	tab = ft_split(argv, 32);
 	if (!tab)
 		return (NULL);
-	
+	command = malloc(sizeof(t_cmd));
+	if (!command)
+		return (free_tab(&tab), NULL);
+	command->command = tab[0];
+	len = 0;
+	while(tab[len])
+		len++;
+	command->flags = malloc(sizeof(char *) * len);
+	if (!command->flags)
+	{
+		free(command);
+		free_tab(&tab);
+		return (NULL)
+	}
+	len = 0;
+	while (tab[len + 1])
+		command->flags[len] = tab[++len];
+	command->flags[len] = 0;
+	return (command);
 }
 
 int main(int argc, char *argv[])

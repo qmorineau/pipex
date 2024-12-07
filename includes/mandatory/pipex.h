@@ -12,4 +12,6 @@ typedef struct s_cmd
     char *command;
     char **flags;
 }   t_cmd;
+/* Free */
+void    free_tab(char ***tab);
 #endif
