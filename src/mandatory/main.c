@@ -2,16 +2,28 @@
 
 void test(int argc, char *argv[], int input, int output)
 {
-	printf("input = %s\n", argv[1]);
-	char *args[] = {"/bin/ls", argv[2], NULL};
+	printf("input = %d\n", input);
+	char *args[] = {"/bin/ls", "-l", "-a", NULL};
     char *env[] = {NULL};
 
+	(void) argc;
+	(void) argv;
     // Replace the current process with /bin/ls
-    if (execve("/bin/cat", args, env) == -1) {
+    if (execve("/bin/ls", args, env) == -1) {
         perror("execve failed");
         exit(EXIT_FAILURE);
     }
-	printf("output = %s\n", argv[argc - 1]);
+	printf("output = %d\n", output);
+}
+
+char **parse_cmd(char *argv)
+{
+	char **tab;
+
+	tab = ft_split(argv, 32);
+	if (!tab)
+		return (NULL);
+	
 }
 
 int main(int argc, char *argv[])
