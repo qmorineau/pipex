@@ -6,11 +6,11 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-#include "libft.h"
+#include "../../libft/includes/libft.h"
 typedef struct s_cmd
 {
     char *command;
-    char **flags;
+    char **args;
 }   t_cmd;
 /* Free */
 void    free_tab(char ***tab);
