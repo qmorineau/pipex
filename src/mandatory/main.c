@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 00:00:45 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/08 01:00:00 by quentin          ###   ########.fr       */
+/*   Updated: 2024/12/08 11:54:53 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,43 @@ void free_command(t_cmd **command)
 	*command = NULL;
 }
 
+int create_pipe(int p[2])
+{
+	if (pipe(p) < 0)
+	{
+		perror("pipe");
+		exit(1);
+	}
+	return (1);
+}
+
+void pipe_read(int p[2])
+{
+	int		byte_read;
+	char	*buff[100];
+
+	byte_read = 1;	
+	while (byte_read > 0)
+	{
+		byte_read = read(p[0], buff, 100);
+		if (byte_read < 0)
+			return ;
+		if (byte_read == 0)
+			break;
+	}
+}
+
+/* void pipe_write(int p[2])
+{
+	
+} */
+
 void exec_cmd(char *cmd, char **args)
 {
-	pid_t pid;
+	pid_t	pid;
+	int		p[2];
 
+	create_pipe(p);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -68,9 +101,16 @@ void exec_cmd(char *cmd, char **args)
         exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		return ;
+	{
+		wait(&pid);
+		close(p[1]);
+		pipe_read(p);
+	}
 	else
 	{
+		close(p[0]);
+		//pipe_write(p);
+		close(p[1]);
 		if (execve(cmd, args, NULL) == -1)
 		{
 			perror("execve failed");
@@ -128,6 +168,32 @@ int main(int argc, char *argv[])
 		close(ouput);
 	}
 }
+
+/* int main(void)
+{
+	char buffer[4];
+	int p[2];
+	int i;
+
+	if (pipe(p) < 0)
+	{
+		perror("pipe");
+		exit(1);
+	}
+	write(p[1], "abc", 3);
+	write(p[1], "def", 3);
+	write(p[1], "gh", 3);
+
+	i = 0;
+	while (i < 3)
+	{
+		read(p[0], buffer, 3);
+		printf("%s\n", buffer);
+		i++;
+	}
+	close(p[0]);
+	close(p[1]);
+} */
 
 /* 
 open, close, read, write,
