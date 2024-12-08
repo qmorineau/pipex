@@ -6,7 +6,7 @@
 #    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/08 00:58:26 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/08 01:01:18 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,5 +95,8 @@ bonus: $(OBJ_BONUS_DIR) $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
+
+test: all
+	./$(NAME) Makefile "ls -la" ls Makefile
 
 .PHONY: all clean fclean re bonus
