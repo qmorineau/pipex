@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 00:00:45 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/08 11:54:53 by quentin          ###   ########.fr       */
+/*   Updated: 2024/12/09 14:45:55 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,13 @@ void exec_cmd(char *cmd, char **args)
 	}
 	else if (pid == 0)
 	{
-		wait(&pid);
 		close(p[1]);
 		pipe_read(p);
 	}
 	else
 	{
 		close(p[0]);
-		//pipe_write(p);
-		close(p[1]);
+		//pipe_write(p);l
 		if (execve(cmd, args, NULL) == -1)
 		{
 			perror("execve failed");
@@ -150,22 +148,20 @@ int do_command(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	int input;
-	int ouput;
-
 	if (argc < 5)
 		return (printf("error handling, not enough args"), 0);
 	else
 	{
-		input = open(argv[1], O_RDONLY);
-		if (input < 0)
-			return (printf("error handling, not a file1"), 0);
-		ouput = open(argv[argc - 1], O_WRONLY);
-		if (ouput < 0)
-			return (printf("error handling, not a file2"), 0);
+		int f1 = access(argv[1], F_OK);
+		int f2 = access(argv[argc - 1], F_OK);
+		if (f1 < 0 || f2 < 0)
+			return(printf("error file exist\n"));
+		f1 = access(argv[1], R_OK);
+		f2 = access(argv[argc - 1], W_OK);
+		if (f1 < 0 || f2 < 0)
+			return(printf("error read / write\n"));
+		printf("f1 = %d, f2 = %d\n", f1, f2);
 		do_command(argc, argv);
-		close(input);
-		close(ouput);
 	}
 }
 
