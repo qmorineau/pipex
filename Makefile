@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/08 01:01:18 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/10 18:38:21 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ MLX_INC = minilibx-linux
 
 # Source and Object files
 SRC_LIST = main.c\
+			parsing.c\
 			free.c
 
 # Source and Object files BONUS
@@ -97,6 +98,6 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
 
 test: all
-	./$(NAME) Makefile "ls -la" ls Makefile
+	./$(NAME) Makefile "ls -la" "grep pipe" Makefile
 
 .PHONY: all clean fclean re bonus
