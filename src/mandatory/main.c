@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:14:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/12 12:52:12 by quentin          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:58:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	check_file(char *argv)
         {
             close(p[1]);
 			dup2(p[0], STDIN_FILENO);
-			close(p[0]);
+			close(p[0]);P
             //pipe_write(p);
             tab = ft_split(argv[i], 32);
             int len = ft_strlen(tab[0]) + 6;
@@ -116,10 +116,11 @@ static int	check_file(char *argv)
     wait(NULL);
 } */
 
-int **create_pipe(int argc, int **p)
+int	**create_pipe(int argc)
 {
-	int pipe_nbr;
-	int i;
+	int	**p;
+	int	pipe_nbr;
+	int	i;
 	int	*tmp;
 
 	pipe_nbr = argc - 3;
@@ -140,7 +141,7 @@ int **create_pipe(int argc, int **p)
 
 void read_pipe(int **p, int cmd_idx, int last_cmd_idx)
 {
-	if (cmd_idx > 0)
+	if (cmd_idx > 2)
 	{
 		dup2(p[cmd_idx][0], STDIN_FILENO);
 		/* link file */
@@ -155,6 +156,46 @@ void read_pipe(int **p, int cmd_idx, int last_cmd_idx)
 	/* do execution of cmd */
 }
 
+void test_exec(char* cmd)
+{
+	char **tab = ft_split(cmd, 32);
+	int len = ft_strlen(tab[0]) + 6;
+	char *s = (char *) ft_calloc(sizeof(char), len);
+	ft_strlcpy(s, "/bin/", len);
+	ft_strlcat(s, tab[0], len);
+	printf("%s\n", s);
+	if (execve(s, tab, NULL) == -1)
+	{
+		perror("execve failed");
+		exit(EXIT_FAILURE);
+	}
+}
+void write_pipe(int **p, int cmd_idx)
+{
+	int fd;
+
+	close(p[cmd_idx - 1][0]);
+	fd = p[cmd_idx][1];
+	wait(NULL);
+	char *s = get_next_line(fd);
+	while (s)
+	{
+		ft_putstr_fd(s, STDOUT_FILENO);
+		free(s);
+		s = get_next_line(fd);
+	}
+	close(p[cmd_idx][1]);
+	fd = p[cmd_idx][0];
+	s =  get_next_line(fd);
+	while (s)
+	{
+		ft_putstr_fd(s, STDOUT_FILENO);
+		free(s);
+		s = get_next_line(fd);
+	}
+}
+
+
 static void forking(int argc, char *argv[], char *env[])
 {
 	int fd;
@@ -162,20 +203,47 @@ static void forking(int argc, char *argv[], char *env[])
 	int **p;
 	pid_t pid;
 
+	(void) env;
 	fd = open(argv[1], O_RDONLY);
 	/* protect open */
-	p = create_pipe(argc, p);
+	p = create_pipe(argc);
+	dup2(fd, p[0][1]);
 	if (!p)
 		return ;
 	/* better protect */
-	i = -1;
+	i = 1;
 	while (++i < argc - 3)
 	{
 		pid = fork();
 		/* protect pid */
+		dup2(p[i][0], STDIN_FILENO);
+		dup2(p[i][1], STDOUT_FILENO);
 		if (pid == 0) /* child */
-			read_pipe(p, i, argc - 4);
+		{
+			read_pipe(p, i, argc - 3);
+			test_exec(argv[i]);
+		}
+		else
+		{
+			write_pipe(p, i);
+		}
 	}
+	wait(NULL);
+	int file = access(argv[argc - 1], F_OK);
+	if (file < 0)
+	{
+		file = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	}
+	else
+		file = open(argv[argc - 1], O_WRONLY | O_TRUNC);
+	char *s = get_next_line(STDIN_FILENO);
+	while (s)
+	{
+		ft_putstr_fd(s, file);
+		free(s);
+		s = get_next_line(STDIN_FILENO);
+	}
+	close(file);
 }
 
 
@@ -192,3 +260,12 @@ int main(int argc, char *argv[], char *env[])
 		return (ft_putstr_fd(strerror(22), 2), 1);
 	return (0);
 }
+
+
+/* 
+open, close, read, write,
+malloc, free, perror,
+strerror, access, dup, dup2,
+execve, exit, fork, pipe,
+unlink, wait, waitpid
+ */

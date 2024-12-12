@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/11 01:05:14 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/12 14:36:49 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC)
 
 # Directories
 SRC_DIR = src/mandatory
@@ -98,6 +98,6 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
 
 test: all
-	./$(NAME) Makefile "ls -la" "grep pipe" test
+	./$(NAME) todo "ls -la" "grep pipe" test.txt
 
 .PHONY: all clean fclean re bonus
