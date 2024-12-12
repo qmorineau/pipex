@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 15:14:23 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/12/12 12:52:12 by quentin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-static int check_file(char *argv)
+static int	check_file(char *argv)
 {
-    int file;
+	int	file;
 
-    file = access(argv, F_OK);
-    if (file < 0)
-        return (perror("zsh"), 0);
-    file = access(argv, R_OK);
-    if (file < 0)
-        return (perror("zsh"), 0);
-    return (1);
+	file = access(argv, F_OK);
+	if (file < 0)
+		return (perror("zsh"), 0);
+	file = access(argv, R_OK);
+	if (file < 0)
+		return (perror("zsh"), 0);
+	return (1);
 }
 
 /* static int create_pipe(int p[2])
@@ -25,23 +37,23 @@ static int check_file(char *argv)
 
 /* static void pipe_read(int p[2])
 {
-    int		byte_read;
+	int		byte_read;
 	char	*buff[100];
 
-	byte_read = 1;	
+	byte_read = 1;
 	while (byte_read > 0)
 	{
 		byte_read = read(p[0], buff, 100);
 		if (byte_read < 0)
 			return ;
 		if (byte_read == 0)
-			break;
+			break ;
 	}
 } */
 
 /* static void pipe_write(int p[2])
 {
-    int i;
+	int	i;
 
     i = 0;
     while (p[1])
@@ -169,14 +181,14 @@ static void forking(int argc, char *argv[], char *env[])
 
 int main(int argc, char *argv[], char *env[])
 {
-    (void) env;
-    if(argc == 5)
-    {
-        if (!check_file(argv[1]))
-            return (1);
-        forking(argc, argv, env);
-    }
-    else
-        return (ft_putstr_fd(strerror(22), 2), 1);
-    return (0);
+	(void)env;
+	if (argc == 5)
+	{
+		if (!check_file(argv[1]))
+			return (1);
+		forking(argc, argv, env);
+	}
+	else
+		return (ft_putstr_fd(strerror(22), 2), 1);
+	return (0);
 }
