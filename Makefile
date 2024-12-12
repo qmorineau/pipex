@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
+#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/10 18:38:21 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/11 01:05:14 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,6 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
 
 test: all
-	./$(NAME) Makefile "ls -la" "grep pipe" Makefile
+	./$(NAME) Makefile "ls -la" "grep pipe" test
 
 .PHONY: all clean fclean re bonus
