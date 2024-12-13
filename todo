@@ -2,3 +2,7 @@
 cat | ls => exec ls and wait for cat
 check acces env variable
 create file if not existed
+protect everything
+parse from the path, and try every path work with access
+
+do heredoc at first before pipe
