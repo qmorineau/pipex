@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
+#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/12 14:36:49 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/13 12:51:12 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC)
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
 
 # Directories
 SRC_DIR = src/mandatory
