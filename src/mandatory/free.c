@@ -17,3 +17,12 @@ void    free_tab(char ***tab)
         *tab = NULL;
     }
 }
+
+void	free_string(char **s)
+{
+	if (s && *s)
+	{
+		free(*s);
+		*s = NULL;
+	}
+}

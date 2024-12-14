@@ -14,4 +14,5 @@ typedef struct s_cmd
 }   t_cmd;
 /* Free */
 void    free_tab(char ***tab);
+void	free_string(char **s);
 #endif

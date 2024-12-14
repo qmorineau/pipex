@@ -1,4 +1,5 @@
 < Makefile "wrong cmd" | "zrong cmd" > file => create the file to append
 cat | ls => exec ls and wait for cat
-check acces env variable
-create file if not existed
+use env variable if disponible
+
+./pipex Makefile "cat all" "ls" bla != < Makefile cat all | ls > bla
