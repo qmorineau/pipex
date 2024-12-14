@@ -1,5 +1,8 @@
 < Makefile "wrong cmd" | "zrong cmd" > file => create the file to append
 cat | ls => exec ls and wait for cat
-use env variable if disponible
+check acces env variable
+create file if not existed
+protect everything
+parse from the path, and try every path work with access
 
-./pipex Makefile "cat all" "ls" bla != < Makefile cat all | ls > bla
+do heredoc at first before pipe
