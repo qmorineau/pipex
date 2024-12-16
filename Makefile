@@ -6,7 +6,7 @@
 #    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/16 14:52:08 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/16 15:30:05 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,9 +99,20 @@ bonus: $(OBJ_BONUS_DIR) $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
-
+ARG1 = Makefile
+ARG2 = ls blou
+ARG2_2 = "$(ARG2)"
+ARG3 = grep pipe
+ARG3_2 = "$(ARG3)"
+ARG4 = out1
+ARG4_2 = out2
 test: all
-	./$(NAME) Makefile "cat" "grep pipe" test.txt
+	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
+	echo $$?
+
+test2:
+	-< $(ARG1) $(ARG2) | $(ARG3) > $(ARG4_2)
+	echo $$?
 
 leak:
 	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME) Makefile "ls -la" "grep pipe" out

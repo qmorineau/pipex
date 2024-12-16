@@ -5,6 +5,9 @@ protect everything
 do heredoc at first before pipe
 
 
+wrong flag cmd on last = exit return 2
+cmd not found = exit return 127
+
 tester :
 => ls -la wrong order
 => exit code (don't do -1)

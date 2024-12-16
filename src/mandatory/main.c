@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:14:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/16 14:51:43 by quentin          ###   ########.fr       */
+/*   Updated: 2024/12/16 15:48:01 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int forking(int argc, char *argv[], char *envp[])
 			if (i == 0)
 				pipe_input_file(fd);
 			if (i != 0)
-				pipe_not_first(prev_pipe);
+				do_pipe(prev_pipe, STDIN_FILENO);
 			if (i < argc - 4)
-				pipe_not_last(current_pipe);
+				do_pipe(current_pipe, STDOUT_FILENO);
 			else
 				pipe_output_file(argv[argc - 1]);
 			if (i + 2 < argc - 1)
@@ -110,14 +110,19 @@ int forking(int argc, char *argv[], char *envp[])
 int main(int argc, char *argv[], char *envp[])
 {
 	int exit_status;
+	int fd;
 
 	if (argc == 5)
 	{
 		if (!check_file(argv[1]))
+		{
+			fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			close(fd);
 			return (0);
+		}
 		exit_status = forking(argc, argv, envp);
-		printf("exit code = %d\n", exit_status);
-		return (exit_status);
+		(void) exit_status;
+		return (0);
     }
 	else
 		return (ft_putstr_fd(strerror(22), 2), 1);

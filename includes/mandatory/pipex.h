@@ -18,8 +18,7 @@ void	free_string(char **s);
 /* Children */
 void	pipe_input_file(int fd);
 void	pipe_output_file(char *file);
-void	pipe_not_last(int current_pipe[2]);
-void	pipe_not_first(int prev_pipe[2]);
+void do_pipe(int pipe[2], int in_out);
 /* Exec */
 void test_exec(char* cmd, char *envp[]);
 /* Path */

@@ -32,3 +32,34 @@ void pipe_not_first(int prev_pipe[2])
 		perror("dup2 fail ici");
 	close(prev_pipe[0]);
 }
+
+void do_pipe(int pipe[2], int in_out)
+{
+	if (in_out == STDIN_FILENO)
+	{
+		close(pipe[1]);
+		if (dup2(pipe[0], STDIN_FILENO) == -1)
+			perror("dup2 fail");
+		close(pipe[0]);
+	}
+	else
+	{
+		close(pipe[0]);
+		if (dup2(pipe[1], STDOUT_FILENO) == -1)
+			perror("dup2 fail");
+		close(pipe[1]);
+	}
+}
+
+/* 
+			if (i == 0)
+				pipe_input_file(fd);
+			if (i != 0)
+				pipe_not_first(prev_pipe);
+			if (i < argc - 4)
+				pipe_not_last(current_pipe);
+			else
+				pipe_output_file(argv[argc - 1]);
+			if (i + 2 < argc - 1)
+				test_exec(argv[i + 2], envp);
+ */
