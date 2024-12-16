@@ -6,7 +6,7 @@
 #    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/13 15:21:10 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/16 14:52:08 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ MLX_INC = minilibx-linux
 # Source and Object files
 SRC_LIST = main.c\
 			parsing.c\
-			free.c
+			free.c\
+			path.c\
+			child.c\
+			exec.c
 
 # Source and Object files BONUS
 BONUS_LIST = 
@@ -98,6 +101,9 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
 
 test: all
-	./$(NAME) todo "ls -la" "grep pipe" test.txt
+	./$(NAME) Makefile "cat" "grep pipe" test.txt
+
+leak:
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME) Makefile "ls -la" "grep pipe" out
 
 .PHONY: all clean fclean re bonus
