@@ -1,15 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_child.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 14:15:23 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:16:11 by quentin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-static void pipe_input_file(int fd)
+static void	pipe_input_file(int fd)
 {
-	if (dup2(fd, STDIN_FILENO) == -1)
-		perror("dup2 fail");
-	close(fd);
+	if (fd >= 0)
+	{
+		if (dup2(fd, STDIN_FILENO) == -1)
+			perror("dup2 fail");
+		close(fd);
+	}
+	else
+	{
+		fd = open("/dev/null", O_RDONLY);
+		if (dup2(fd, STDIN_FILENO) == -1)
+			perror("dup2 fail");
+		close(fd);
+	}
 }
 
-static void pipe_output_file(char *file)
+static void	pipe_output_file(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (dup2(fd, STDOUT_FILENO) == -1)
@@ -17,7 +39,7 @@ static void pipe_output_file(char *file)
 	close(fd);
 }
 
-static void do_pipe(int pipe[2], int in_out)
+static void	do_pipe(int pipe[2], int in_out)
 {
 	if (in_out == STDIN_FILENO)
 	{
@@ -35,7 +57,8 @@ static void do_pipe(int pipe[2], int in_out)
 	}
 }
 
-void pipe_child(int prev_pipe[2], int current_pipe[2], t_params *params, int i)
+void	pipe_child(int prev_pipe[2], int current_pipe[2],
+				t_params *params, int i)
 {
 	if (i == 0)
 		pipe_input_file(params->fd_in);

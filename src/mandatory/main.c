@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:04:20 by quentin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 static int	check_file_in(char *argv)
@@ -44,9 +56,9 @@ static int	check_file_out(char *argv)
 	return (1);
 }
 
-static t_params *create_params(int argc, char *argv[], char *envp[], int fd_in)
+static t_params	*create_params(int argc, char *argv[], char *envp[], int fd_in)
 {
-	t_params *params;
+	t_params	*params;
 
 	params = malloc(sizeof(t_params));
 	if (!params)
@@ -58,11 +70,10 @@ static t_params *create_params(int argc, char *argv[], char *envp[], int fd_in)
 	return (params);
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_params	*params;
 	int			fd_in;
-	int			fd_out;
 	int			exit_status;
 
 	if (argc == 5)
@@ -70,19 +81,11 @@ int main(int argc, char *argv[], char *envp[])
 		fd_in = check_file_in(argv[1]);
 		if (!check_file_out(argv[argc -1]))
 			return (1);
-		if (fd_in < 0)
-		{
-				fd_out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-				if (fd_out > 0)
-					close(fd_out);
-				return (0);
-		}
 		params = create_params(argc, argv, envp, fd_in);
 		if (!params)
-			return (1); /* error func failed malloc */
+			return (1);
 		exit_status = forking(params);
 		free_params(&params);
-		//printf("exit = %d\n", exit_status);
 		return (exit_status);
 	}
 	else

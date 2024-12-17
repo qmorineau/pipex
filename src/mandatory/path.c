@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 14:14:41 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:15:06 by quentin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 static char	*try_path(char *cmd, char **tab, int i)
@@ -11,13 +23,13 @@ static char	*try_path(char *cmd, char **tab, int i)
 	if (!access(path, X_OK))
 	{
 		free_tab(&tab);
-		return(path);
+		return (path);
 	}
 	free_str(&path);
 	return (NULL);
 }
 
-static char *parse_path(char *cmd, char *env_line)
+static char	*parse_path(char *cmd, char *env_line)
 {
 	char	**tab;
 	int		i;
@@ -38,20 +50,20 @@ static char *parse_path(char *cmd, char *env_line)
 	}
 	free_tab(&tab);
 	perror("command not found");
-	return(NULL);
+	return (NULL);
 }
 
-char *find_path(char *cmd, char *envp[])
+char	*find_path(char *cmd, char *envp[])
 {
-	int i;
-	char *path;
+	int		i;
+	char	*path;
 
 	i = 0;
 	if (!envp || !*envp)
 		return (NULL);
 	while (envp[i])
 	{
-		if(ft_strnstr(envp[i], "PATH=", 5))
+		if (ft_strnstr(envp[i], "PATH=", 5))
 		{
 			path = parse_path(cmd, envp[i]);
 			if (path)
