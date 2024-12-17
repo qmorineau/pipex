@@ -3,13 +3,13 @@
 static int exit_status(pid_t last_pid)
 {
 	int status = 0;
-	int exit_status = EXIT_FAILURE;
+	int exit_status = 0;
 	
 	while (waitpid(-1, &status, 0) > 0)
 	{
 		if (WIFEXITED(status))
 		{
-			if (last_pid == waitpid(last_pid, &status, 0))
+			if (last_pid != waitpid(last_pid, &status, 0))
 				exit_status = WEXITSTATUS(status);
 		}
 		else if (WIFSIGNALED(status))

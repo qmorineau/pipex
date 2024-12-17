@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-static int	check_file(char *argv)
+static int	check_file_in(char *argv)
 {
 	int	fd;
 
@@ -27,6 +27,23 @@ static int	check_file(char *argv)
 	return (fd);
 }
 
+static int	check_file_out(char *argv)
+{
+	int	fd;
+
+	fd = access(argv, F_OK);
+	if (fd < 0)
+		return (1);
+	fd = access(argv, W_OK);
+	if (fd < 0)
+	{
+		ft_putstr_fd(argv, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		return (0);
+	}
+	return (1);
+}
+
 static t_params *create_params(int argc, char *argv[], char *envp[], int fd_in)
 {
 	t_params *params;
@@ -50,19 +67,22 @@ int main(int argc, char *argv[], char *envp[])
 
 	if (argc == 5)
 	{
-		fd_in = check_file(argv[1]);
+		fd_in = check_file_in(argv[1]);
+		if (!check_file_out(argv[argc -1]))
+			return (1);
 		if (fd_in < 0)
 		{
-			fd_out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			if (fd_out > 0)
-				close(fd_out);
-			return (1);
+				fd_out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+				if (fd_out > 0)
+					close(fd_out);
+				return (0);
 		}
 		params = create_params(argc, argv, envp, fd_in);
 		if (!params)
 			return (1); /* error func failed malloc */
 		exit_status = forking(params);
 		free_params(&params);
+		printf("exit = %d\n", exit_status);
 		return (exit_status);
 	}
 	else
