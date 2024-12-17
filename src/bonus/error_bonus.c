@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_parent.c                                      :+:      :+:    :+:   */
+/*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 14:15:14 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:39 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/12/17 13:58:12 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:23:20 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	parent_pipe(int prev_pipe[2], int current_pipe[2], int i, int argc)
+void	pipe_error(int fd)
 {
-	if (i > 0)
-	{
-		close(prev_pipe[0]);
-		close(prev_pipe[1]);
-	}
-	if (i < argc - 4)
-	{
-		prev_pipe[0] = current_pipe[0];
-		prev_pipe[1] = current_pipe[1];
-	}
-	if (i == argc - 4)
-	{
-		close(current_pipe[0]);
-		close(current_pipe[1]);
-	}
+	perror("pipe fail");
+	close(fd);
+	exit(EXIT_FAILURE);
+}
+
+void	fork_error(int pipe[2], t_params *params)
+{
+	close(pipe[0]);
+	close(pipe[1]);
+	close(params->fd_in);
+	free(params);
+	exit(1);
+}
+
+void	execve_error(void)
+{
+	perror("execve failed");
+	exit(EXIT_FAILURE);
 }

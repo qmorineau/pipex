@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_parent.c                                      :+:      :+:    :+:   */
+/*   exec_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 14:15:14 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:39 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/12/17 14:01:06 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:23:24 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	parent_pipe(int prev_pipe[2], int current_pipe[2], int i, int argc)
+void	exec_cmd(char *cmd, char *envp[])
 {
-	if (i > 0)
+	char	**args;
+	char	*path;
+
+	args = ft_split(cmd, 32);
+	if (!args)
+		return ;
+	if (!access(cmd, X_OK))
 	{
-		close(prev_pipe[0]);
-		close(prev_pipe[1]);
+		if (execve(cmd, args, NULL) == -1)
+			execve_error();
 	}
-	if (i < argc - 4)
+	path = find_path(args[0], envp);
+	if (!path)
 	{
-		prev_pipe[0] = current_pipe[0];
-		prev_pipe[1] = current_pipe[1];
+		free_tab(&args);
+		exit(127);
 	}
-	if (i == argc - 4)
-	{
-		close(current_pipe[0]);
-		close(current_pipe[1]);
-	}
+	if (execve(path, args, NULL) == -1)
+		execve_error();
 }

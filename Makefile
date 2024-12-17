@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/17 13:07:28 by quentin          ###   ########.fr        #
+#    Updated: 2024/12/17 14:22:50 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,14 @@ SRC_LIST = main.c\
 			pipe_parent.c
 
 # Source and Object files BONUS
-BONUS_LIST = 
+BONUS_LIST = main_bonus.c\
+			error_bonus.c\
+			exec_bonus.c\
+			fork_bonus.c\
+			free_bonus.c\
+			path_bonus.c\
+			pipe_child_bonus.c\
+			pipe_parent_bonus.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_LIST))
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC_LIST:.c=.o))

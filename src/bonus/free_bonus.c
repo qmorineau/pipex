@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_parent.c                                      :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 14:15:14 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:39 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/12/17 14:02:30 by quentin           #+#    #+#             */
+/*   Updated: 2024/12/17 14:23:28 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	parent_pipe(int prev_pipe[2], int current_pipe[2], int i, int argc)
+void	free_tab(char ***tab)
 {
-	if (i > 0)
+	int	i;
+
+	if (tab && *tab)
 	{
-		close(prev_pipe[0]);
-		close(prev_pipe[1]);
+		i = 0;
+		while (tab[0][i])
+		{
+			free(tab[0][i]);
+			tab[0][i] = NULL;
+			i++;
+		}
+		free(*tab);
+		*tab = NULL;
 	}
-	if (i < argc - 4)
-	{
-		prev_pipe[0] = current_pipe[0];
-		prev_pipe[1] = current_pipe[1];
-	}
-	if (i == argc - 4)
-	{
-		close(current_pipe[0]);
-		close(current_pipe[1]);
-	}
+}
+
+void	free_params(t_params **params)
+{
+	close((*params)->fd_in);
+	free(*params);
+	*params = NULL;
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_parent.c                                      :+:      :+:    :+:   */
+/*   pipe_parent_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:15:14 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:39 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:23:37 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	parent_pipe(int prev_pipe[2], int current_pipe[2], int i, int argc)
 {
