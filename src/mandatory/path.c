@@ -1,11 +1,28 @@
 #include "pipex.h"
 
-static char *parse_path(char *cmd, char *env_line)
+static char	*try_path(char *cmd, char **tab, int i)
 {
-	char **tab;
-	int	i;
 	char	*path;
 	char	*tmp;
+
+	tmp = ft_strjoin(tab[i], "/");
+	path = ft_strjoin(tmp, cmd);
+	free_str(&tmp);
+	if (!access(path, X_OK))
+	{
+		free_str(&cmd);
+		free_tab(&tab);
+		return(path);
+	}
+	free_str(&path);
+	return (NULL);
+}
+
+static char *parse_path(char *cmd, char *env_line)
+{
+	char	**tab;
+	int		i;
+	char	*path;
 
 	if (!access(cmd, X_OK))
 		return (cmd);
@@ -16,18 +33,9 @@ static char *parse_path(char *cmd, char *env_line)
 	while (tab[++i])
 	{
 		if (!access(tab[i], X_OK))
-		{
-			tmp = ft_strjoin(tab[i], "/");
-			path = ft_strjoin(tmp, cmd);
-			free_str(&tmp);
-			if (!access(path, X_OK))
-			{
-				free_str(&cmd);
-				free_tab(&tab);
-				return(path);
-			}
-			free_str(&path);
-		}
+			path = try_path(cmd, tab, i);
+		if (path)
+			return (path);
 	}
 	free_tab(&tab);
 	perror("command not found");
