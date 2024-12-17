@@ -18,11 +18,9 @@ void    free_tab(char ***tab)
     }
 }
 
-void	free_string(char **s)
+void	free_params(t_params **params)
 {
-	if (s && *s)
-	{
-		free(*s);
-		*s = NULL;
-	}
+	close((*params)->fd_in);
+	free(*params);
+	*params = NULL;
 }

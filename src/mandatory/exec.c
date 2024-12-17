@@ -1,11 +1,6 @@
 #include "pipex.h"
 
-void execve_error(void)
-{
-	perror("execve failed");
-	exit(EXIT_FAILURE);
-}
-void test_exec(char* cmd, char *envp[])
+void exec_cmd(char* cmd, char *envp[])
 {
 	char **args;
 	char *path;
@@ -28,4 +23,3 @@ void test_exec(char* cmd, char *envp[])
 	if (execve(path, args, NULL) == -1)
 		execve_error();
 }
-

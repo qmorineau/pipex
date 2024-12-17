@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:00:06 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/10/29 15:04:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/17 07:05:11 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	print_from_flags(va_list args, int *count, char c)
 		printf_putchar_fd('%', 1, count);
 }
 
-int	ft_printf(const char *string, ...)
+int	ft_printf_fd(const char *string, ...)
 {
 	va_list	args;
 	int		count;

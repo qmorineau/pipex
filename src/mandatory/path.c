@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-char *parse_path(char *cmd, char *env_line)
+static char *parse_path(char *cmd, char *env_line)
 {
 	char **tab;
 	int	i;
@@ -33,7 +33,6 @@ char *parse_path(char *cmd, char *env_line)
 	perror("command not found");
 	return(NULL);
 }
-
 
 char *find_path(char *cmd, char *envp[])
 {
