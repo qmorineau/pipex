@@ -10,7 +10,6 @@ static char	*try_path(char *cmd, char **tab, int i)
 	free_str(&tmp);
 	if (!access(path, X_OK))
 	{
-		free_str(&cmd);
 		free_tab(&tab);
 		return(path);
 	}

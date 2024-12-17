@@ -17,8 +17,8 @@ void exec_cmd(char* cmd, char *envp[])
 	path = find_path(args[0], envp);
 	if (!path)
 	{
-		if (execve(args[0], args, NULL) == -1)
-			execve_error();
+		free_tab(&args);
+		return ;
 	}
 	if (execve(path, args, NULL) == -1)
 		execve_error();

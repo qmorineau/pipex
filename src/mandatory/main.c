@@ -82,7 +82,7 @@ int main(int argc, char *argv[], char *envp[])
 			return (1); /* error func failed malloc */
 		exit_status = forking(params);
 		free_params(&params);
-		printf("exit = %d\n", exit_status);
+		//printf("exit = %d\n", exit_status);
 		return (exit_status);
 	}
 	else
