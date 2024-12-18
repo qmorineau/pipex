@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:14:41 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:17:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:19:02 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static char	*try_path(char *cmd, char **tab, int i)
 {

@@ -6,14 +6,14 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:16:20 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:19:22 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 # include <unistd.h>
-# include <stdlib.h>includes/mandatory/pipex.h
+# include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>

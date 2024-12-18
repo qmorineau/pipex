@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:17:09 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:18:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static int	check_file_in(char *argv)
 {

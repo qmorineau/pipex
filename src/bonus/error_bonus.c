@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:12 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:17:00 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:18:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	pipe_error(int fd)
 {

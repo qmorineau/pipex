@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:02:30 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:17:07 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:18:59 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	free_tab(char ***tab)
 {

@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:15:14 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:17:16 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:19:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	parent_pipe(int prev_pipe[2], int current_pipe[2], int i, int argc)
 {
