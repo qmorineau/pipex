@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:01:06 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:21:19 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:30:23 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ void	exec_cmd(char *cmd, char *envp[])
 		exit(127);
 	}
 	if (execve(path, args, NULL) == -1)
+	{
+		free(path);
+		path = NULL;
+		free_tab(&args);
 		execve_error();
+	}
 }

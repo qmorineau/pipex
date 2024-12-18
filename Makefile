@@ -6,13 +6,13 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/17 14:29:01 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/18 13:44:48 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC)
 
 # Directories
 SRC_DIR = src/mandatory
@@ -115,7 +115,7 @@ ARG3 = grep pipe
 ARG3_2 = "$(ARG3)"
 ARG4 = out1
 ARG4_2 = out2
-test: all
+test: all test2
 	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
 	echo $$?
 
@@ -126,4 +126,4 @@ test2:
 leak:
 	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME) Makefile "ls -la" "grep pipe" out
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus test test2
