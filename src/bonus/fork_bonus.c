@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:01:38 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:23:26 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:17:05 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 static int	exit_status(pid_t last_pid)
 {

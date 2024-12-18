@@ -6,14 +6,14 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:23:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:16:20 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#ifndef PIPEX_H
+# define PIPEX_H
 # include <unistd.h>
-# include <stdlib.h>
+# include <stdlib.h>includes/mandatory/pipex.h
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
@@ -44,4 +44,6 @@ int		forking(t_params *params);
 void	exec_cmd(char *cmd, char *envp[]);
 /* Path */
 char	*find_path(char *cmd, char *envp[]);
+/* Check */
+int		check_file_out(char *argv);
 #endif

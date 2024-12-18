@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:53 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:04:42 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,6 @@ int		forking(t_params *params);
 void	exec_cmd(char *cmd, char *envp[]);
 /* Path */
 char	*find_path(char *cmd, char *envp[]);
+/* Check */
+int		check_file_out(char *argv);
 #endif

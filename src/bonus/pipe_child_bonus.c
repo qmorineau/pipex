@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:15:23 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:23:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:17:14 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 static void	pipe_input_file(int fd)
 {
@@ -18,7 +18,6 @@ static void	pipe_input_file(int fd)
 	{
 		if (dup2(fd, STDIN_FILENO) == -1)
 			perror("dup2 fail");
-		close(fd);
 	}
 	else
 	{
@@ -33,6 +32,8 @@ static void	pipe_output_file(char *file)
 {
 	int	fd;
 
+	if (!check_file_out(file))
+		exit(1);
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		perror("dup2 fail");

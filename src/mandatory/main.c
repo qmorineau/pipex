@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:28 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:04:13 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_file_in(char *argv)
 	return (fd);
 }
 
-static int	check_file_out(char *argv)
+int	check_file_out(char *argv)
 {
 	int	fd;
 
@@ -79,8 +79,6 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc == 5)
 	{
 		fd_in = check_file_in(argv[1]);
-		if (!check_file_out(argv[argc -1]))
-			return (1);
 		params = create_params(argc, argv, envp, fd_in);
 		if (!params)
 			return (1);

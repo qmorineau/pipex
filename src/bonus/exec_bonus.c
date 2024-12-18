@@ -6,11 +6,11 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:01:06 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:23:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:17:03 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 void	exec_cmd(char *cmd, char *envp[])
 {
