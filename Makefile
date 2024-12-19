@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/19 12:27:02 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/19 14:32:43 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ MLX_INC = minilibx-linux
 SRC_LIST = main.c\
 			error.c\
 			exec.c\
-			pipe.c\
+			pipes.c\
 			free.c\
 			path.c\
 			check_file.c
@@ -109,9 +109,9 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 ARG1 = Makefile
 ARG2 = cat -e
 ARG2_2 = "$(ARG2)"
-ARG3 = cat skibidi
+ARG3 = cat -e
 ARG3_2 = "$(ARG3)"
-ARG4 = bla
+ARG4 = out1
 ARG4_2 = out2
 test: all test2
 	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4); echo $$?
@@ -119,7 +119,7 @@ test: all test2
 test2:
 	-< $(ARG1) $(ARG2) | $(ARG3) > $(ARG4_2); echo $$?
 
-leak:
-	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all ./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
+leak: all
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all --errors-for-leak-kinds=definite ./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
 
 .PHONY: all clean fclean re bonus test test2

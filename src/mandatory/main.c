@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 10:11:03 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:29:53 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_params	*params;
 	int			exit_status;
-	int			i;
 
 	if (argc == 5)
 	{
 		params = create_params(argc, argv, envp);
 		if (!params)
 			return (1);
-		i = -1;
-		while (++i + 2 < params->argc - 2)
-			exit_status = forking(params);
+		exit_status = do_pipes(params);
 		free_params(&params);
 		return (exit_status);
 	}

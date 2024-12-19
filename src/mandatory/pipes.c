@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 12:28:26 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:27:37 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,28 @@
 
 static int	exit_status(pid_t last_pid)
 {
+	pid_t pid;
 	int	status;
 	int	exit_status;
-
+	
+	return (0);
 	status = 0;
 	exit_status = 0;
-	fprintf(stderr, "waitingpid\n");
-	if (waitpid(last_pid, &status, 0) > 0)
-	{
-		if (WIFEXITED(status))
-			exit_status = WEXITSTATUS(status);
-	}
-	fprintf(stderr, "waitingpid end\n");
+	while (1)
+    {
+        pid = waitpid(-1, &status, 0);
+        if (pid == -1) // No more child processes
+            break;
+        if (pid == last_pid)
+        {
+            // Retrieve the exit status of the last process
+            if (WIFEXITED(status))
+            {
+                int last_exit_status = WEXITSTATUS(status);
+                printf("Exit status of the last command: %d\n", last_exit_status);
+            }
+        }
+    }
 	return (exit_status);
 }
 
@@ -52,7 +62,7 @@ static void	pipe_parent(int pipe_fd[2])
 	close(pipe_fd[0]);
 }
 
-int	forking(t_params *params)
+int	do_pipes(t_params *params)
 {
 	int		i;
 	int		pipe_fd[2];
@@ -61,6 +71,7 @@ int	forking(t_params *params)
 
 	i = -1;
 	check_file_in(params->argv[1]);
+	ft_putstr_fd("begin pipes\n", 2);
 	while (++i + 2 < params->argc - 1)
 	{
 		if (pipe(pipe_fd))
