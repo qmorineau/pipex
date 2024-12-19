@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 07:42:20 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:14:27 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "libft.h"
+# define ERR_EXEC 0
+# define ERR_OPEN 1
 
 typedef struct s_params
 {
@@ -33,14 +35,14 @@ void	free_params(t_params **params);
 /* Errors */
 void	pipe_error(int fd);
 void	fork_error(int pipe[2], t_params *params);
-void	execve_error(void);
-/* Fork */
-int		forking(t_params *params);
+void	print_error(t_params *params, int err);
+/* Pipes */
+int		do_pipes(t_params *params);
 /* Exec */
-void	exec_cmd(char *cmd, char *envp[]);
+void	exec_cmd(t_params *params, char *cmd, char *envp[]);
 /* Path */
 char	*find_path(char *cmd, char *envp[]);
 /* Check */
-void	check_file_in(char *argv);
-int		check_file_out(char *argv);
+void	check_file_in(t_params *params, char *argv);
+int		check_file_out(t_params *params, char *argv);
 #endif

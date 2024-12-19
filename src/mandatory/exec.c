@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:01:06 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 19:21:47 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:11:06 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exec_cmd(t_params *params, char *cmd, char *envp[])
 	if (!access(cmd, X_OK))
 	{
 		if (execve(cmd, args, NULL) == -1)
-			execve_error(params);
+			print_error(params, ERR_EXEC);
 	}
 	path = find_path(args[0], envp);
 	if (!path)
@@ -36,5 +36,5 @@ void	exec_cmd(t_params *params, char *cmd, char *envp[])
 	free(path);
 	path = NULL;
 	free_tab(&args);
-	execve_error(params);
+	print_error(params, ERR_EXEC);
 }

@@ -6,13 +6,13 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:01:06 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 07:41:25 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:15:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	exec_cmd(char *cmd, char *envp[])
+void	exec_cmd(t_params *params, char *cmd, char *envp[])
 {
 	char	**args;
 	char	*path;
@@ -23,19 +23,18 @@ void	exec_cmd(char *cmd, char *envp[])
 	if (!access(cmd, X_OK))
 	{
 		if (execve(cmd, args, NULL) == -1)
-			execve_error();
+			print_error(params, ERR_EXEC);
 	}
 	path = find_path(args[0], envp);
 	if (!path)
 	{
 		free_tab(&args);
+		free_params(&params);
 		exit(127);
 	}
-	if (execve(path, args, NULL) == -1)
-	{
-		free(path);
-		path = NULL;
-		free_tab(&args);
-		execve_error();
-	}
+	execve(path, args, NULL);
+	free(path);
+	path = NULL;
+	free_tab(&args);
+	print_error(params, ERR_EXEC);
 }

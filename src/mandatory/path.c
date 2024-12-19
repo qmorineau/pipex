@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:14:41 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:32 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:29:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static char	*try_path(char *cmd, char **tab, int i)
 
 	tmp = ft_strjoin(tab[i], "/");
 	path = ft_strjoin(tmp, cmd);
-	free_str(&tmp);
+	if (tmp != path)
+		free_str(&tmp);
 	if (!access(path, X_OK))
 	{
 		free_tab(&tab);

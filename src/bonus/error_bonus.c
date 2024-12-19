@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:12 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 07:41:21 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:15:02 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ void	fork_error(int pipe[2], t_params *params)
 {
 	close(pipe[0]);
 	close(pipe[1]);
-	close(params->fd_in);
 	free(params);
 	exit(1);
 }
 
-void	execve_error(void)
+void	print_error(t_params *params, int err)
 {
-	perror("execve failed");
+	free_params(&params);
+	if (err == ERR_EXEC)
+		perror("execve failed");
+	else if (err == ERR_OPEN)
+		perror("open failed");
 	exit(EXIT_FAILURE);
 }
