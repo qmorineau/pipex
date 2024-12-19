@@ -6,13 +6,13 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 14:27:37 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:33:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	exit_status(pid_t last_pid)
+/* static int	exit_status(pid_t last_pid)
 {
 	pid_t pid;
 	int	status;
@@ -36,6 +36,24 @@ static int	exit_status(pid_t last_pid)
             }
         }
     }
+	return (exit_status);
+} */
+
+static int	exit_status(pid_t last_pid)
+{
+	int	status;
+	int	exit_status;
+
+	status = 0;
+	exit_status = 0;
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+		{
+			if (last_pid != waitpid(last_pid, &status, 0))
+				exit_status = WEXITSTATUS(status);
+		}
+	}
 	return (exit_status);
 }
 
