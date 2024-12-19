@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 20:15:09 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:16:37 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,22 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (argc >= 5)
 	{
-		params = create_params(argc, argv, envp);
-		if (!params)
-			return (1);
-		exit_status = do_pipes(params);
-		free_params(&params);
-		return (exit_status);
+		if (!ft_strncmp(argv[1], "here_doc", 9))
+		{
+			params = create_params(argc, argv, envp);
+			if (!params)
+				return (1);
+			exit_status = here_doc(params);
+			return (exit_status);
+		}
+		else
+		{
+			params = create_params(argc, argv, envp);
+			if (!params)
+				return (1);
+			exit_status = do_pipes(params);
+			return (exit_status);
+		}
 	}
 	else
 		return (ft_putstr_fd(strerror(22), 2), 1);

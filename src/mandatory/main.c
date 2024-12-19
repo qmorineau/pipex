@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:03:10 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 20:15:27 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:17:09 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!params)
 			return (1);
 		exit_status = do_pipes(params);
-		free_params(&params);
 		return (exit_status);
 	}
 	else

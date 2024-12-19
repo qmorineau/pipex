@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 21:16:57 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/12/19 21:05:23 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/12/19 22:31:51 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static int	exit_status(pid_t last_pid)
 {
@@ -40,7 +40,7 @@ static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 		perror("dup2 fail");
 	close(pipe_fd[1]);
-	if (i + 2 == params->argc - 2)
+	if (i + 3 == params->argc - 2)
 	{
 		if (!check_file_out(params, params->argv[params->argc - 1]))
 		{
@@ -48,7 +48,7 @@ static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 			exit(1);
 		}
 	}
-	exec_cmd(params, params->argv[i + 2], params->envp);
+	exec_cmd(params, params->argv[i + 3], params->envp);
 	exit(1);
 }
 
@@ -60,7 +60,36 @@ static void	pipe_parent(int pipe_fd[2])
 	close(pipe_fd[0]);
 }
 
-int	do_pipes(t_params *params)
+static void	read_stdin(t_params *params)
+{
+	char	*line;
+	char	*eof;
+	int		fd;
+
+	eof = ft_strjoin(params->argv[2], "\n");
+	if (!eof)
+		return ;
+	fd = open(".tmp_pipex", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (fd >= 0)
+	{
+		line = get_next_line(0);
+		while (line && ft_strncmp(eof, line, ft_strlen(eof)))
+		{
+			write(fd, line, ft_strlen(line));
+			free_str(&line);
+			line = get_next_line(0);
+		}
+		write(fd, line, ft_strlen(line));
+		if (dup2(fd, STDIN_FILENO) == -1)
+			perror("dup2 fail");
+		close(fd);
+		unlink(".tmp_pipex");
+		free_str(&line);
+	}
+	free_str(&eof);
+}
+
+int	here_doc(t_params *params)
 {
 	int		i;
 	int		pipe_fd[2];
@@ -68,8 +97,8 @@ int	do_pipes(t_params *params)
 	pid_t	last_pid;
 
 	i = -1;
-	check_file_in(params, params->argv[1]);
-	while (++i + 2 < params->argc - 1)
+	read_stdin(params);
+	while (++i + 3 < params->argc - 1)
 	{
 		if (pipe(pipe_fd))
 			pipe_error(params->fd_in);

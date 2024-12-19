@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 20:15:15 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:16:48 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,6 @@ static int	exit_status(pid_t last_pid)
 	}
 	return (exit_status);
 }
-
-/* static int	exit_status(pid_t last_pid)
-{
-	int	status;
-	int	exit_status;
-
-	status = 0;
-	exit_status = 0;
-	while (waitpid(-1, &status, 0) > 0)
-	{
-		if (WIFEXITED(status))
-		{
-			if (last_pid != waitpid(last_pid, &status, 0))
-				exit_status = WEXITSTATUS(status);
-		}
-	}
-	return (exit_status);
-} */
 
 static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 {
@@ -102,5 +84,6 @@ int	do_pipes(t_params *params)
 			last_pid = pid;
 		}
 	}
+	free_params(&params);
 	return (exit_status(last_pid));
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 20:14:27 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:18:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@ char	*find_path(char *cmd, char *envp[]);
 /* Check */
 void	check_file_in(t_params *params, char *argv);
 int		check_file_out(t_params *params, char *argv);
+/* Heredoc */
+int		here_doc(t_params *params);
 #endif

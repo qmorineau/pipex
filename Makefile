@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/19 19:26:04 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/19 22:19:29 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,11 @@ SRC_LIST = main.c\
 BONUS_LIST = main_bonus.c\
 			error_bonus.c\
 			exec_bonus.c\
-			pipe_bonus.c\
+			pipes_bonus.c\
 			free_bonus.c\
 			path_bonus.c\
-			check_file_bonus.c
+			check_file_bonus.c\
+			here_doc_bonus.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_LIST))
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC_LIST:.c=.o))
@@ -106,13 +107,16 @@ bonus: $(OBJ_BONUS_DIR) $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
-ARG1 = src/mandatory/main.c
+ARG1 = Makefile
 ARG2 = cat -e
 ARG2_2 = "$(ARG2)"
-ARG3 = 
+ARG3 = cat -e
 ARG3_2 = "$(ARG3)"
 ARG4 = out1
 ARG4_2 = out2
+heredoc: bonus
+	./$(NAME_BONUS) here_doc bla cat "wc -l" out_heredoc
+
 test: all test2
 	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4); echo $$?
 
