@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/18 13:44:48 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/19 12:27:02 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,21 +38,19 @@ MLX_INC = minilibx-linux
 SRC_LIST = main.c\
 			error.c\
 			exec.c\
-			fork.c\
+			pipe.c\
 			free.c\
 			path.c\
-			pipe_child.c\
-			pipe_parent.c
+			check_file.c
 
 # Source and Object files BONUS
 BONUS_LIST = main_bonus.c\
 			error_bonus.c\
 			exec_bonus.c\
-			fork_bonus.c\
+			pipe_bonus.c\
 			free_bonus.c\
 			path_bonus.c\
-			pipe_child_bonus.c\
-			pipe_parent_bonus.c
+			check_file_bonus.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_LIST))
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC_LIST:.c=.o))
@@ -109,21 +107,19 @@ $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
 ARG1 = Makefile
-ARG2 = ls -la
+ARG2 = cat -e
 ARG2_2 = "$(ARG2)"
-ARG3 = grep pipe
+ARG3 = cat skibidi
 ARG3_2 = "$(ARG3)"
-ARG4 = out1
+ARG4 = bla
 ARG4_2 = out2
 test: all test2
-	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
-	echo $$?
+	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4); echo $$?
 
 test2:
-	-< $(ARG1) $(ARG2) | $(ARG3) > $(ARG4_2)
-	echo $$?
+	-< $(ARG1) $(ARG2) | $(ARG3) > $(ARG4_2); echo $$?
 
 leak:
-	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME) Makefile "ls -la" "grep pipe" out
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all ./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
 
 .PHONY: all clean fclean re bonus test test2

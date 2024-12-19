@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:02:30 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/18 08:18:59 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 09:35:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	free_tab(char ***tab)
 
 void	free_params(t_params **params)
 {
-	close((*params)->fd_in);
 	free(*params);
 	*params = NULL;
 }
