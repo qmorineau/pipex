@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/19 14:32:43 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/19 19:25:16 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,10 +106,10 @@ bonus: $(OBJ_BONUS_DIR) $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
-ARG1 = Makefile
+ARG1 = src/mandatory/main.c
 ARG2 = cat -e
 ARG2_2 = "$(ARG2)"
-ARG3 = cat -e
+ARG3 = 
 ARG3_2 = "$(ARG3)"
 ARG4 = out1
 ARG4_2 = out2

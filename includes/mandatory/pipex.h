@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 13:58:41 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:20:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	free_params(t_params **params);
 /* Errors */
 void	pipe_error(int fd);
 void	fork_error(int pipe[2], t_params *params);
-void	execve_error(void);
+void	execve_error(t_params *params);
 /* Pipes */
 int		do_pipes(t_params *params);
 /* Exec */
-void	exec_cmd(char *cmd, char *envp[]);
+void	exec_cmd(t_params *params, char *cmd, char *envp[]);
 /* Path */
 char	*find_path(char *cmd, char *envp[]);
 /* Check */
-void	check_file_in(char *argv);
-int		check_file_out(char *argv);
+void	check_file_in(t_params *params, char *argv);
+int		check_file_out(t_params *params, char *argv);
 #endif

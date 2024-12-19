@@ -6,40 +6,35 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 18:33:25 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:18:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/* static int	exit_status(pid_t last_pid)
+static int	exit_status(pid_t last_pid)
 {
-	pid_t pid;
-	int	status;
-	int	exit_status;
-	
-	return (0);
+	pid_t	pid;
+	int		status;
+	int		exit_status;
+
 	status = 0;
 	exit_status = 0;
 	while (1)
-    {
-        pid = waitpid(-1, &status, 0);
-        if (pid == -1) // No more child processes
-            break;
-        if (pid == last_pid)
-        {
-            // Retrieve the exit status of the last process
-            if (WIFEXITED(status))
-            {
-                int last_exit_status = WEXITSTATUS(status);
-                printf("Exit status of the last command: %d\n", last_exit_status);
-            }
-        }
-    }
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid == -1)
+			break ;
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+				exit_status = WEXITSTATUS(status);
+		}
+	}
 	return (exit_status);
-} */
+}
 
-static int	exit_status(pid_t last_pid)
+/* static int	exit_status(pid_t last_pid)
 {
 	int	status;
 	int	exit_status;
@@ -55,7 +50,7 @@ static int	exit_status(pid_t last_pid)
 		}
 	}
 	return (exit_status);
-}
+} */
 
 static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 {
@@ -65,10 +60,13 @@ static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 	close(pipe_fd[1]);
 	if (i + 2 == params->argc - 2)
 	{
-		if (!check_file_out(params->argv[params->argc - 1]))
+		if (!check_file_out(params, params->argv[params->argc - 1]))
+		{
+			free_params(&params);
 			exit(1);
+		}
 	}
-	exec_cmd(params->argv[i + 2], params->envp);
+	exec_cmd(params, params->argv[i + 2], params->envp);
 	exit(1);
 }
 
@@ -88,8 +86,7 @@ int	do_pipes(t_params *params)
 	pid_t	last_pid;
 
 	i = -1;
-	check_file_in(params->argv[1]);
-	ft_putstr_fd("begin pipes\n", 2);
+	check_file_in(params, params->argv[1]);
 	while (++i + 2 < params->argc - 1)
 	{
 		if (pipe(pipe_fd))

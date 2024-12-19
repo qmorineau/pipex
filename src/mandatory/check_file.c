@@ -6,13 +6,13 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:37:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 12:24:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:14:21 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_file_in(char *argv)
+void	check_file_in(t_params *params, char *argv)
 {
 	int	fd;
 
@@ -38,6 +38,7 @@ void	check_file_in(char *argv)
 		else
 		{
 			perror("open fail");
+			free_params(&params);
 			exit(1);
 		}
 		return ;
@@ -52,11 +53,12 @@ void	check_file_in(char *argv)
 	else
 	{
 		perror("open fail");
+		free_params(&params);
 		exit(1);
 	}
 }
 
-int	check_file_out(char *file)
+int	check_file_out(t_params *params, char *file)
 {
 	int	fd;
 
@@ -73,6 +75,7 @@ int	check_file_out(char *file)
 		else
 		{
 			perror("open fail");
+			free_params(&params);
 			exit(1);
 		}
 		return (1);
@@ -96,6 +99,7 @@ int	check_file_out(char *file)
 		else
 		{
 			perror("open fail");
+			free_params(&params);
 			exit(1);
 		}
 		return (1);
