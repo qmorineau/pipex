@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:37:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 20:14:59 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:35:22 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ static void	no_read_perm(t_params *params, char *argv)
 		print_error(params, ERR_OPEN);
 }
 
-static void	create_output_file(t_params *params, char *file)
+static void	create_output_file(t_params *params, char *file, int is_heredoc)
 {
 	int	fd;
 
-	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	fprintf(stderr, "heredoc = %d\n", is_heredoc);
+	if (is_heredoc)
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0666);
+	else
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd >= 0)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
@@ -72,14 +76,14 @@ void	check_file_in(t_params *params, char *argv)
 		print_error(params, ERR_OPEN);
 }
 
-int	check_file_out(t_params *params, char *file)
+int	check_file_out(t_params *params, char *file, int is_heredoc)
 {
 	int	fd;
 
 	fd = access(file, F_OK);
 	if (fd < 0)
 	{
-		create_output_file(params, file);
+		create_output_file(params, file, is_heredoc);
 		return (1);
 	}
 	fd = access(file, W_OK);
@@ -90,7 +94,7 @@ int	check_file_out(t_params *params, char *file)
 	}
 	else
 	{
-		create_output_file(params, file);
+		create_output_file(params, file, is_heredoc);
 		return (1);
 	}
 	return (0);

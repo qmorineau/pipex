@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/19 21:16:48 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:22:40 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	exit_status(pid_t last_pid)
 	return (exit_status);
 }
 
-static void	pipe_child(int pipe_fd[2], t_params *params, int i)
+static void	pipe_child(int pipe_fd[2], t_params *params, int i, int is_heredoc)
 {
 	close(pipe_fd[0]);
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
@@ -42,7 +42,7 @@ static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 	close(pipe_fd[1]);
 	if (i + 2 == params->argc - 2)
 	{
-		if (!check_file_out(params, params->argv[params->argc - 1]))
+		if (!check_file_out(params, params->argv[params->argc - 1], is_heredoc))
 		{
 			free_params(&params);
 			exit(1);
@@ -77,7 +77,7 @@ int	do_pipes(t_params *params)
 		if (pid == -1)
 			fork_error(pipe_fd, params);
 		else if (pid == 0)
-			pipe_child(pipe_fd, params, i);
+			pipe_child(pipe_fd, params, i, 0);
 		else
 		{
 			pipe_parent(pipe_fd);
