@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/20 17:43:01 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/20 18:03:34 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(OBJ_BONUS_DIR):
 	@mkdir -p $(OBJ_BONUS_DIR)
 
 # Linking object files
-$(NAME): $(MLX_LIB) $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) -I $(INC) $(OBJ) $(LIBFT) -o $(NAME)
 	@echo "$(YELLOW)Exec $(NAME) created.$(RESET)"
 
