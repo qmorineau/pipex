@@ -6,7 +6,7 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/20 12:18:56 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/20 17:43:01 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ LIBFT = $(LIBFT_DIR)/libft.a
 INC = includes/mandatory
 INC_BONUS = includes/bonus
 LIBFT_INC = libft/includes
-MLX_INC = minilibx-linux
 
 # Source and Object files
 SRC_LIST = main.c\
