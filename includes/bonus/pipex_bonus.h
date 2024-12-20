@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:58:31 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/20 11:20:43 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:56:50 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	fork_error(int pipe[2], t_params *params);
 void	print_error(t_params *params, int err);
 /* Pipes */
 int		do_pipes(t_params *params);
+void	pipe_parent(int pipe_fd[2]);
+void	pipe_child(int pipe_fd[2], t_params *params, int i, int is_heredoc);
 /* Exec */
 void	exec_cmd(t_params *params, char *cmd, char *envp[]);
 /* Path */

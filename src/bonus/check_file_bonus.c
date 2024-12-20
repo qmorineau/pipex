@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:37:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/20 11:35:22 by qmorinea         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:11:37 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	create_output_file(t_params *params, char *file, int is_heredoc)
 {
 	int	fd;
 
-	fprintf(stderr, "heredoc = %d\n", is_heredoc);
 	if (is_heredoc)
 		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	else

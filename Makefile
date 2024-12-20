@@ -6,13 +6,13 @@
 #    By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:20:34 by qmorinea          #+#    #+#              #
-#    Updated: 2024/12/19 22:19:29 by qmorinea         ###   ########.fr        #
+#    Updated: 2024/12/20 12:18:56 by qmorinea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC)
 
 # Directories
 SRC_DIR = src/mandatory
@@ -107,23 +107,5 @@ bonus: $(OBJ_BONUS_DIR) $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -I $(INC_BONUS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(YELLOW)BONUS : Exec $(NAME) created.$(RESET)"
-ARG1 = Makefile
-ARG2 = cat -e
-ARG2_2 = "$(ARG2)"
-ARG3 = cat -e
-ARG3_2 = "$(ARG3)"
-ARG4 = out1
-ARG4_2 = out2
-heredoc: bonus
-	./$(NAME_BONUS) here_doc bla cat "wc -l" out_heredoc
 
-test: all test2
-	-./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4); echo $$?
-
-test2:
-	-< $(ARG1) $(ARG2) | $(ARG3) > $(ARG4_2); echo $$?
-
-leak: all
-	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all --errors-for-leak-kinds=definite ./$(NAME) $(ARG1) $(ARG2_2) $(ARG3_2) $(ARG4)
-
-.PHONY: all clean fclean re bonus test test2
+.PHONY: all clean fclean re bonus
