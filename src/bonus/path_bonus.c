@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:14:41 by quentin           #+#    #+#             */
-/*   Updated: 2024/12/19 20:15:12 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:40:51 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*parse_path(char *cmd, char *env_line)
 	int		i;
 	char	*path;
 
+	path = NULL;
 	if (!access(cmd, X_OK))
 		return (cmd);
 	tab = ft_split(env_line + 5, ':');

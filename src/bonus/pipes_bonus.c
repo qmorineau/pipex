@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/20 12:16:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:07:18 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	pipe_child(int pipe_fd[2], t_params *params, int i, int is_heredoc)
 		}
 	}
 	exec_cmd(params, params->argv[i + 2 + is_heredoc], params->envp);
+	free_params(&params);
 	exit(1);
 }
 

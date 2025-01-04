@@ -6,7 +6,7 @@
 /*   By: qmorinea < qmorinea@student.s19.be >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 07:08:52 by qmorinea          #+#    #+#             */
-/*   Updated: 2024/12/20 11:57:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:04:18 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	pipe_child(int pipe_fd[2], t_params *params, int i)
 		}
 	}
 	exec_cmd(params, params->argv[i + 2], params->envp);
+	free_params(&params);
 	exit(1);
 }
 
